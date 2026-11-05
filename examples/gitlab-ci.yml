@@ -1,0 +1,16 @@
+# GitLab CI: verify the production release after deploy.
+stages:
+  - deploy
+  - verify
+
+deploy:
+  stage: deploy
+  script:
+    - ./deploy.sh
+
+verify_release:
+  stage: verify
+  script:
+    - curl -sL -o shipcheck https://github.com/mrpythonist/ship-check/releases/download/v0.1.0/shipcheck-linux-amd64
+    - chmod +x shipcheck
+    - ./shipcheck verify --json
