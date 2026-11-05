@@ -1,0 +1,5 @@
+shipcheck
+shipcheck-*
+*.test
+/dist/
+.env
