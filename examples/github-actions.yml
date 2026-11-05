@@ -1,0 +1,25 @@
+# GitHub Actions: verify the production release after deploy.
+# Copy the verify step into your deploy workflow.
+name: Deploy and Verify
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy
+        run: ./deploy.sh
+
+      - name: Install ShipCheck
+        run: |
+          curl -sL -o shipcheck https://github.com/mrpythonist/ship-check/releases/download/v0.1.0/shipcheck-linux-amd64
+          chmod +x shipcheck
+          sudo mv shipcheck /usr/local/bin/shipcheck
+
+      - name: Verify Production Release
+        run: shipcheck verify --json
