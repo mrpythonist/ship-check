@@ -1,0 +1,56 @@
+# Laravel example: Horizon queues, MySQL, Redis, Docker Compose.
+version: 1
+
+project:
+  name: laravel-app
+  environment: production
+
+verification:
+  timeout: 30s
+  parallel: true
+
+checks:
+  http:
+    enabled: true
+    endpoints:
+      - name: Laravel Health
+        url: https://example.com/up
+        expected_status: 200
+        timeout: 5s
+        max_response_time_ms: 2000
+
+  database:
+    enabled: true
+    driver: mysql
+    dsn: ${DATABASE_URL}
+    timeout: 5s
+
+  redis:
+    enabled: true
+    address: 127.0.0.1:6379
+
+  docker:
+    enabled: true
+    containers:
+      - name: laravel-app
+        max_restarts: 3
+      - name: laravel-worker
+        max_restarts: 3
+
+  workers:
+    enabled: true
+    processes:
+      - name: Horizon Supervisor
+        pattern: "horizon"
+        min_count: 1
+    heartbeat_file: /var/www/laravel-app/storage/worker-heartbeat.txt
+    heartbeat_max_age: 5m
+    queues:
+      - name: default
+        key: "queues:default"
+        max_length: 100
+
+  system:
+    enabled: true
+    disk_max_usage_percent: 90
+    memory_max_usage_percent: 90
