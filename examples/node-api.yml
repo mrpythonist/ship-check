@@ -1,0 +1,48 @@
+# Node.js API example: Express/Fastify behind nginx, PostgreSQL, Redis.
+version: 1
+
+project:
+  name: node-api
+  environment: production
+
+verification:
+  timeout: 30s
+  parallel: true
+
+checks:
+  http:
+    enabled: true
+    endpoints:
+      - name: API Health
+        url: https://api.example.com/health
+        expected_status: 200
+        timeout: 5s
+        max_response_time_ms: 1000
+        body_contains: "ok"
+      - name: Public Site
+        url: https://example.com/
+        expected_status: 200
+        timeout: 5s
+
+  database:
+    enabled: true
+    driver: postgres
+    dsn: ${DATABASE_URL}
+
+  redis:
+    enabled: true
+    address: 127.0.0.1:6379
+
+  workers:
+    enabled: true
+    processes:
+      - name: BullMQ Worker
+        pattern: "worker"
+        min_count: 1
+    heartbeat_file: /var/www/node-api/worker-heartbeat.txt
+    heartbeat_max_age: 5m
+
+  system:
+    enabled: true
+    disk_max_usage_percent: 90
+    memory_max_usage_percent: 90
