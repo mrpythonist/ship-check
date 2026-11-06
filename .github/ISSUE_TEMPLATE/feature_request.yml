@@ -1,0 +1,53 @@
+name: Feature request
+description: A new check or capability
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A good feature request names the release failure it would catch. A check that only confirms a process exists is usually not enough; see docs/CHECKS.md for how the workers checks use three signals.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What release failure would this catch that ShipCheck misses today?
+      placeholder: "A deploy can succeed while the scheduled jobs never run, and nothing in v0.1.0 notices."
+    validations:
+      required: true
+  - type: textarea
+    id: proposed-check
+    attributes:
+      label: Proposed check
+      description: What it verifies (real behaviour, not just process presence), how it should fail, and what recommendation it should give.
+      placeholder: |
+        - Category: workers
+        - Verifies: the scheduler heartbeat file is fresh
+        - Fails when: the file is older than the configured max age
+        - Recommends: checking the scheduler process and its logs
+    validations:
+      required: true
+  - type: textarea
+    id: safe-way
+    attributes:
+      label: Safe, read-only way to verify this in production?
+      description: Is there a way to check this without writing to the application, the database, or the filesystem?
+      placeholder: "Read the heartbeat file timestamp. No writes needed."
+    validations:
+      required: false
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which check category this belongs to, if any.
+      options:
+        - HTTP
+        - Database
+        - Redis
+        - Docker
+        - Workers
+        - System
+        - New category
+        - Not a check (CLI, reporting, config, other)
+    validations:
+      required: false
