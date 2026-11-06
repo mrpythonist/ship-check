@@ -14,9 +14,9 @@ and [examples/node-api.yml](../examples/node-api.yml) (Node.js API).
 
 | Field | Default | Notes |
 | --- | --- | --- |
-| `version` | — (required, must be `1`) | Config format version. |
-| `project.name` | — (required) | Shown in reports. |
-| `project.environment` | — (required) | e.g. `production`. |
+| `version` | - (required, must be `1`) | Config format version. |
+| `project.name` | - (required) | Shown in reports. |
+| `project.environment` | - (required) | e.g. `production`. |
 | `verification.timeout` | `30s` | Global deadline for the whole run. |
 | `verification.parallel` | `true` | Run checks concurrently. |
 | `verification.fail_fast` | `false` | Stop after the first failure (sequential) / cancel the rest (parallel). |
