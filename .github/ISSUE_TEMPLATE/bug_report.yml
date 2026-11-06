@@ -1,0 +1,67 @@
+name: Bug report
+description: Something ShipCheck verified incorrectly, or crashed
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Please redact secrets from any config or output you paste. ShipCheck should never print a credential; if it does, report it privately instead, as described in SECURITY.md.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What ShipCheck did, and what you expected it to do instead.
+      placeholder: "shipcheck verify passed, but the database was actually down."
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: shipcheck.yml (redact secrets)
+      description: The relevant part of your config. Remove passwords, tokens, and DSNs, or replace them with placeholders.
+      render: yaml
+      placeholder: |
+        checks:
+          http:
+            enabled: true
+            endpoints:
+              - name: API Health
+                url: https://example.com/api/health
+    validations:
+      required: false
+  - type: textarea
+    id: command-output
+    attributes:
+      label: Command and output
+      description: The exact command you ran and what it printed.
+      render: shell
+      placeholder: |
+        shipcheck verify --verbose
+        ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: ShipCheck version
+      description: Output of `shipcheck version`.
+      placeholder: v0.1.0
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      description: OS and version of the machine running ShipCheck.
+      placeholder: Ubuntu 24.04
+    validations:
+      required: true
+  - type: textarea
+    id: target
+    attributes:
+      label: What was actually running
+      description: The app, database, Redis, Docker, and workers ShipCheck was verifying, and their real state at the time.
+      placeholder: "Laravel app on EC2, Postgres on RDS, Redis local, Docker Compose."
+    validations:
+      required: false
