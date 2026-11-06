@@ -28,6 +28,6 @@ an outage. The rules it follows:
 ## Permissions required
 
 - Network access to the configured endpoints, databases, Redis and
-  Docker socket — nothing else.
+  Docker socket - nothing else.
 - Read access to `/proc` (Linux) and to the heartbeat file, if configured.
 - No root access, except where the Docker socket itself requires it.
