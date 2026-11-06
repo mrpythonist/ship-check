@@ -1,6 +1,6 @@
 # Architecture Decisions
 
-## ADR-001: Implementation language — Go
+## ADR-001: Implementation language - Go
 
 **Context.** The MVP is a CLI that must be easy to install on a VPS, fast
 to start in a deploy pipeline, and reliable against production systems.
@@ -9,7 +9,7 @@ to start in a deploy pipeline, and reliable against production systems.
 
 | Criterion | Go | TypeScript / Node.js | Python |
 | --- | --- | --- | --- |
-| Single-binary distribution | Yes — static binary, no runtime | No — needs Node installed | No — needs interpreter + venv |
+| Single-binary distribution | Yes - static binary, no runtime | No - needs Node installed | No - needs interpreter + venv |
 | Startup time | ~ms | ~100ms+ | ~100ms+ |
 | CLI experience | Excellent (cobra-style, stdlib flags) | Good | Good |
 | Cross-platform | Excellent | Good | Good |
@@ -20,7 +20,7 @@ to start in a deploy pipeline, and reliable against production systems.
 **Decision.** Go, one primary language for the core engine.
 
 **Consequences.** Contributors need Go 1.23+. The binary is the whole
-distribution — no runtime to install on the target host. The trade-off
+distribution - no runtime to install on the target host. The trade-off
 is a smaller pool of contributors than Python/JS, accepted because the
 product is infrastructure tooling where Go is the established choice.
 
@@ -33,7 +33,7 @@ want another service to run.
 account, no background agent. CI integration is just the exit code.
 
 **Consequences.** Historical reports and continuous monitoring are
-Phase 3+ features, built on top of the same engine and report format —
+Phase 3+ features, built on top of the same engine and report format -
 not a rewrite.
 
 ## ADR-003: Warnings do not fail a release by default
