@@ -5,7 +5,7 @@ Every check returns a structured result: status (`pass` / `fail` /
 it fails. Severity decides the release verdict: `critical` failures fail
 the release; `warning` failures only warn.
 
-## HTTP — `checks.http`
+## HTTP - `checks.http`
 
 One check per endpoint.
 
@@ -23,7 +23,7 @@ status, body mismatch, slow timeout, unreachable). TLS expiry is
 implemented via a real TLS handshake; it has not been exercised against
 a live expiring certificate in this environment.
 
-## Database — `checks.database`
+## Database - `checks.database`
 
 PostgreSQL (`driver: postgres`) or MySQL (`driver: mysql`). Connects,
 pings, and runs a read-only query (`query`, default `SELECT 1`).
@@ -34,9 +34,9 @@ error message.
 
 **Honest status:** tested against unreachable targets (fails cleanly,
 no password in the message). Not yet run against live PostgreSQL /
-MySQL servers in this environment — see the README's known limitations.
+MySQL servers in this environment - see the README's known limitations.
 
-## Redis — `checks.redis`
+## Redis - `checks.redis`
 
 Raw RESP client, no extra dependency. Sends `PING`, then `SET` / `GET` /
 `DEL` on `shipcheck:probe:<random>` with a 10-second TTL. Application
@@ -47,7 +47,7 @@ expires on its own), not a failure.
 and against unreachable targets. Not yet run against a live Redis
 server in this environment.
 
-## Docker — `checks.docker`
+## Docker - `checks.docker`
 
 Talks to the Docker Engine API over the Unix socket (`socket`, default
 `/var/run/docker.sock`). Verifies the daemon answers `/_ping`, lists
@@ -58,7 +58,7 @@ against `max_restarts`. Read-only: nothing is started or stopped.
 **Honest status:** tested against a fake Unix-socket API in the test
 suite. Not yet run against a live Docker daemon in this environment.
 
-## Workers — `checks.workers`
+## Workers - `checks.workers`
 
 Three independent checks, because a running process does not prove
 jobs are being processed:
@@ -68,7 +68,7 @@ jobs are being processed:
 2. **Heartbeat** (`heartbeat_file`, `heartbeat_max_age`, default 5m):
    the worker must touch this file regularly (for example, on every
    job or every minute). A stale heartbeat fails the release even if
-   the process is running — this is the strongest signal.
+   the process is running - this is the strongest signal.
 3. **Queue backlog** (`queues[].key`, `max_length`, `address`): reads
    the Redis list length (`LLEN`) for a queue key and fails when it
    exceeds the threshold.
@@ -83,7 +83,7 @@ API check is a Phase 2 item.
 (fresh/stale/missing). Queue backlog is tested through the fake RESP
 server's `LLEN`.
 
-## System — `checks.system`
+## System - `checks.system`
 
 - **Disk** (`disk_path`, `disk_max_usage_percent`, default 90): `Statfs`.
 - **Memory** (`memory_max_usage_percent`, default 90): `/proc/meminfo`.
