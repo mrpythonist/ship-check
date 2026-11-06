@@ -14,10 +14,14 @@ essential step, after deploy:
   run: shipcheck verify --json
 ```
 
-Install the binary in an earlier step (download the release asset, or
-`go install github.com/mrpythonist/ship-check/cmd/shipcheck@v0.1.0`).
+Install the binary in an earlier step. Until the first release is
+published, build it from source or install the module
+(`go install github.com/mrpythonist/ship-check/cmd/shipcheck@latest`);
+after the first release, download the release asset for your platform.
 The workflow in [.github/workflows/ci.yml](../.github/workflows/ci.yml)
-runs the project's own tests on every push and PR.
+runs the project's own tests on every push and PR. That workflow file
+is prepared in this repository; it has to be added to GitHub through
+the web UI, because the API cannot push workflow files.
 
 ## GitLab CI
 
@@ -35,7 +39,7 @@ verify_release:
 ```bash
 ./deploy.sh || exit 1
 shipcheck verify --json || {
-  echo "Release verification FAILED — rolling back"
+  echo "Release verification FAILED - rolling back"
   ./rollback.sh
   exit 1
 }
@@ -45,8 +49,10 @@ shipcheck verify --json || {
 
 Pushing a tag `v*` runs [.github/workflows/release.yml](../.github/workflows/release.yml),
 which builds binaries for Linux, macOS and Windows (amd64/arm64) with
-GoReleaser-style `go build` steps and attaches them to the GitHub
-release. To cut v0.1.0:
+plain `go build` steps and attaches them to the GitHub release. No
+release has been published yet, and the workflow file has to be added
+to GitHub through the web UI first (the API cannot push workflow
+files). Once it is in place, cut v0.1.0 with:
 
 ```bash
 git tag v0.1.0
