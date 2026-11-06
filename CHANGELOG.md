@@ -3,6 +3,10 @@
 All notable changes to ShipCheck are documented here. The format follows
 Keep a Changelog, and the project adheres to Semantic Versioning.
 
+## [Unreleased]
+
+Nothing yet. Add entries here when a user-visible change lands.
+
 ## [0.1.0] - 2026-11-05
 
 ### Added
@@ -29,7 +33,7 @@ Keep a Changelog, and the project adheres to Semantic Versioning.
   security, and architecture decisions (including the Go choice).
 - Test suite: config, engine, registry, reporting, security, and every
   check category, using real local servers (httptest, fake RESP server,
-  fake Docker Unix-socket API) — no fake passing checks.
+  fake Docker Unix-socket API). No fake passing checks.
 
 ### Known limitations
 
@@ -42,3 +46,5 @@ Keep a Changelog, and the project adheres to Semantic Versioning.
   status of each check.
 - Docker checks require access to the Docker Unix socket.
 - No Kubernetes support in v0.1.0 by design.
+- No release binaries have been published yet. The first release will
+  be cut by tagging v0.1.0 after the release workflow is in place.
